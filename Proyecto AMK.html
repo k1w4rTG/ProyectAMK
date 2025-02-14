@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Collage Romántico - 6 Imágenes Debajo de las Flores</title>
+  <style>
+    /* Estilos generales */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, #ffeaf2 0%, #fef9e7 100%);
+      min-height: 100vh;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    .bouquet-container {
+      position: relative;
+      width: 400px;
+      height: 450px;
+      margin-bottom: 40px;
+      /* Permite que las imágenes sobresalgan sin recortarse */
+      overflow: visible;
+    }
+
+    /* Envoltorio simulado (papel) */
+    .envoltorio {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 320px;
+      background: linear-gradient(135deg, #f8d5c0, #f6ebd9);
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 0; /* Al fondo */
+    }
+    
+    /* Imágenes del collage debajo de las flores */
+    .collage-img {
+      position: absolute;
+      width: 80px;
+      height: auto;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      z-index: 1; /* Debajo de las flores (que tienen z-index:2) */
+      transition: transform 0.3s ease;
+    }
+    .collage-img:hover {
+      transform: scale(1.1);
+    }
+    /* Posicionamos 6 imágenes en dos filas */
+    .collage-img1 {
+      top: 230px;  /* Fila superior (debajo de las flores) */
+      left: 20px;
+      transform: rotate(-3deg);
+    }
+    .collage-img2 {
+      top: 230px;
+      left: 140px;
+      transform: rotate(4deg);
+    }
+    .collage-img3 {
+      top: 230px;
+      left: 260px;
+      transform: rotate(-2deg);
+    }
+    .collage-img4 {
+      top: 320px;  /* Fila inferior */
+      left: 40px;
+      transform: rotate(3deg);
+    }
+    .collage-img5 {
+      top: 320px;
+      left: 160px;
+      transform: rotate(-4deg);
+    }
+    .collage-img6 {
+      top: 320px;
+      left: 280px;
+      transform: rotate(2deg);
+    }
+    
+    /* Cada flor del ramo */
+    .flor-bouquet {
+      position: absolute;
+      width: 90px;
+      height: 160px;
+      z-index: 2; /* Encima del collage */
+    }
+    .cabeza {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto;
+    }
+    .petal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-origin: center bottom;
+    }
+    .petal .contenido {
+      position: absolute;
+      width: 24px;
+      height: 50px;
+      border-radius: 50% 50% 0 0;
+      left: -12px;
+      top: -50px;
+      transform-origin: bottom center;
+      animation: latido 1.5s infinite alternate;
+      box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    }
+    @keyframes latido {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .petal1 { transform: rotate(0deg); }
+    .petal2 { transform: rotate(45deg); }
+    .petal3 { transform: rotate(90deg); }
+    .petal4 { transform: rotate(135deg); }
+    .petal5 { transform: rotate(180deg); }
+    .petal6 { transform: rotate(225deg); }
+    .petal7 { transform: rotate(270deg); }
+    .petal8 { transform: rotate(315deg); }
+
+    .centro {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .tallo-bouquet {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      width: 4px;
+      height: 70px;
+      background: linear-gradient(to bottom, #4caf50, #2e7d32);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    /* =============================
+       COLORES PARA CADA TIPO DE FLOR
+       ============================= */
+    /* Gerbera rosada */
+    .gerbera-rosada .contenido {
+      background: linear-gradient(135deg, #ff6eb4, #ff4081);
+    }
+    .gerbera-rosada .centro {
+      background: radial-gradient(circle, #ffeb3b, #fbc02d);
+    }
+    /* Gerbera naranja */
+    .gerbera-naranja .contenido {
+      background: linear-gradient(135deg, #ffa726, #ff7043);
+    }
+    .gerbera-naranja .centro {
+      background: radial-gradient(circle, #ffd54f, #ffb300);
+    }
+    /* Gerbera roja */
+    .gerbera-roja .contenido {
+      background: linear-gradient(135deg, #ff5252, #e91e63);
+    }
+    .gerbera-roja .centro {
+      background: radial-gradient(circle, #ffd54f, #ffb300);
+    }
+    /* Rosa anaranjada */
+    .rosa-anaranjada .contenido {
+      background: linear-gradient(135deg, #ffa270, #ff5722);
+    }
+    .rosa-anaranjada .centro {
+      background: radial-gradient(circle, #ffecb3, #ffc107);
+    }
+    /* Rosa fucsia */
+    .rosa-fucsia .contenido {
+      background: linear-gradient(135deg, #ff80ab, #ff4081);
+    }
+    .rosa-fucsia .centro {
+      background: radial-gradient(circle, #ffdce1, #ff9ebb);
+    }
+    /* Flor verde (tipo crisantemo) */
+    .verde .contenido {
+      background: linear-gradient(135deg, #b2ff59, #76ff03);
+    }
+    .verde .centro {
+      background: radial-gradient(circle, #ccff90, #b2ff59);
+    }
+
+    /* Mensaje y botón */
+    .mensaje {
+      font-size: 24px;
+      color: #e91e63;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .boton {
+      padding: 10px 20px;
+      font-size: 18px;
+      color: white;
+      background-color: #e91e63;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .boton:hover {
+      background-color: #c2185b;
+    }
+  </style>
+  <script>
+    function mostrarMensaje() {
+      const mensajes = [
+        "Estoy para ti ❤️",
+        "Eres mi todo 💕",
+        "Te amo mucho 😘",
+        "Eres mi felicidad 💖",
+        "Cada día a tu lado es especial 🌸"
+      ];
+      const mensajeElemento = document.getElementById("mensaje");
+      const mensajeAleatorio = mensajes[Math.floor(Math.random() * mensajes.length)];
+      mensajeElemento.textContent = mensajeAleatorio;
+    }
+  </script>
+</head>
+<body>
+  <div class="bouquet-container">
+    <!-- Envoltorio del ramo -->
+    <div class="envoltorio"></div>
+    
+    <!-- 6 Imágenes del collage debajo de las flores -->
+    <img src="WhatsApp Image 2025-02-14 at 2.04.53 PM (1).jpeg" alt="Romántico 1" class="collage-img collage-img1">
+    <img src="WhatsApp Image 2025-02-14 at 2.04.53 PM (2).jpeg" alt="Romántico 2" class="collage-img collage-img2">
+    <img src="WhatsApp Image 2025-02-14 at 2.04.53 PM.jpeg" alt="Romántico 3" class="collage-img collage-img3">
+    <img src="WhatsApp Image 2025-02-14 at 2.04.55 PM (1).jpeg" alt="Romántico 4" class="collage-img collage-img4">
+    <img src="WhatsApp Image 2025-02-14 at 2.04.55 PM.jpeg" alt="Romántico 5" class="collage-img collage-img5">
+    <img src="WhatsApp Image 2025-02-14 at 2.04.54 PM.jpeg" alt="Romántico 6" class="collage-img collage-img6">
+
+    <!-- Gerbera rosada -->
+    <div class="flor-bouquet gerbera-rosada" style="left: 30px; top: 20px;">
+      <div class="cabeza" style="transform: rotate(-10deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+
+    <!-- Gerbera naranja -->
+    <div class="flor-bouquet gerbera-naranja" style="left: 120px; top: 0;">
+      <div class="cabeza" style="transform: rotate(10deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+
+    <!-- Gerbera roja -->
+    <div class="flor-bouquet gerbera-roja" style="left: 220px; top: 10px;">
+      <div class="cabeza" style="transform: rotate(0deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+
+    <!-- Rosa anaranjada -->
+    <div class="flor-bouquet rosa-anaranjada" style="left: 80px; top: 80px;">
+      <div class="cabeza" style="transform: rotate(-5deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+
+    <!-- Rosa fucsia -->
+    <div class="flor-bouquet rosa-fucsia" style="left: 170px; top: 90px;">
+      <div class="cabeza" style="transform: rotate(15deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+
+    <!-- Flor verde (crisante) -->
+    <div class="flor-bouquet verde" style="left: 270px; top: 80px;">
+      <div class="cabeza" style="transform: rotate(5deg);">
+        <div class="petal petal1"><div class="contenido"></div></div>
+        <div class="petal petal2"><div class="contenido"></div></div>
+        <div class="petal petal3"><div class="contenido"></div></div>
+        <div class="petal petal4"><div class="contenido"></div></div>
+        <div class="petal petal5"><div class="contenido"></div></div>
+        <div class="petal petal6"><div class="contenido"></div></div>
+        <div class="petal petal7"><div class="contenido"></div></div>
+        <div class="petal petal8"><div class="contenido"></div></div>
+        <div class="centro"></div>
+      </div>
+      <div class="tallo-bouquet"></div>
+    </div>
+  </div>
+
+  <div class="mensaje" id="mensaje">¡Feliz San Valentín! 💖</div>
+  <button class="boton" onclick="mostrarMensaje()">Toca para un mensaje de amor</button>
+</body>
+</html>
+
